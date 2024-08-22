@@ -1,0 +1,135 @@
+<style>
+  /* Estilo para o contêiner de coluna */
+  #divColumn {
+    margin-bottom: 7rem; /* Adiciona uma margem inferior ao contêiner */
+  }
+
+  /* Estilo para o contêiner da imagem */
+  #divImg {
+    margin-top: 9rem; /* Adiciona uma margem superior ao contêiner da imagem */
+  }
+
+  /* Estilo para o título de nível 3 */
+  #h3 {
+    margin-bottom: 1rem; /* Adiciona uma margem inferior ao título */
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /* Define a família de fontes */
+  }
+
+  /* Estilo para parágrafos */
+  #para {
+    margin-bottom: 1rem; /* Adiciona uma margem inferior ao parágrafo */
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /* Define a família de fontes */
+  }
+
+  /* Estilo para o cartão */
+  .card {
+    margin-top: 5rem; /* Adiciona uma margem superior ao cartão */
+    display: flex; /* Usa Flexbox para o layout */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+  }
+
+  /* Estilo para o corpo do cartão */
+  .card-body {
+    align-items: start !important; /* Alinha os itens ao início do contêiner (ignora outros estilos) */
+  }
+
+  /* Estilo para a div com botões */
+  .butoes {
+    width: 100%; /* Define a largura para 100% do contêiner pai */
+    display: flex; /* Usa Flexbox para o layout dos botões */
+  }
+
+  /* Estilo para o botão de edição */
+  #edit {
+    margin-left: 1px; /* Adiciona uma margem à esquerda do botão */
+    margin-right: 4px; /* Adiciona uma margem à direita do botão */
+    margin-top: 1vh; /* Adiciona uma margem superior ao botão */
+  } 
+
+  /* Estilo para o botão de veículo */
+  #veiculo {
+    margin-top: 1vh; /* Adiciona uma margem superior ao botão */
+  }
+
+  /* Estilo para o botão de deletar */
+  #delet {
+    margin-top: 1vh !important; /* Adiciona uma margem superior ao botão (ignora outros estilos) */
+    margin-left: 4px !important; /* Adiciona uma margem à esquerda do botão (ignora outros estilos) */
+    margin-right: 3vw !important; /* Adiciona uma margem à direita do botão (ignora outros estilos) */
+  }
+</style>
+
+{{#if dado}}
+  <!-- Verifica se o objeto "dado" existe e exibe seu conteúdo -->
+  <div id="divColumn">
+    <!-- Contêiner para a imagem -->
+    <div id="divImg">
+      <figure class="figure">
+        {{#if dado.image}}
+          <!-- Exibe a imagem se estiver disponível -->
+          <img id="img" src="/{{dado.image}}" alt="{{dado.nome}}" class="img-fluid" />
+        {{else}}
+          <!-- Exibe uma mensagem se a imagem não estiver disponível -->
+          <p>Sem imagem</p>
+        {{/if}}
+        <figcaption class="figure-caption text-end"></figcaption>
+      </figure>
+    </div>
+
+    <p>
+      <!-- Título de boas-vindas -->
+      <h3 id="h3">Bem-vindo, {{dado.nome}}</h3>
+    </p>
+
+    <p id="para">Gerencie suas informações abaixo.</p>
+  </div>
+
+  <!-- Cartão para exibir as informações do dado -->
+  <div class="card mt-3 d-flex justify-content-start">
+    <div class="card-body">
+      <!-- Informações exibidas no cartão -->
+      <p><strong>CPF:</strong> {{dado.cpf}}</p>
+      <p><strong>Idade:</strong> {{dado.idade}}</p>
+      <p><strong>Rua:</strong> {{dado.rua}}</p>
+      <p><strong>Bairro:</strong> {{dado.bairro}}</p>
+      <p><strong>Estado:</strong> {{dado.estado}}</p>
+      <p><strong>Biografia:</strong> {{dado.biografia}}</p>
+
+      <!-- Botões de ação -->
+      <div class="butoes">
+        <!-- Botão de edição -->
+        <a href="/admin/dados/edit/{{dado._id}}">
+          <button class="btn btn-primary" id="edit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+              <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"></path>
+            </svg>
+          </button>
+        </a>
+
+        <!-- Botão de veículo -->
+        <a href="/admin/veiculos/{{dado._id}}">
+          <button class="btn btn-primary" id="veiculo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
+              <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+            </svg>
+          </button>
+        </a>
+
+        <!-- Formulário para deletar -->
+        <form action="/admin/dados/deletar" method="post">
+          <input type="hidden" name="id" value="{{dado._id}}" />
+          <button type="submit" class="btn btn-danger mt-2" id="delet">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{{else}}
+  <!-- Mensagem exibida se o objeto "dado" não existir -->
+  <p>Usuário não encontrado</p>
+{{/if}}

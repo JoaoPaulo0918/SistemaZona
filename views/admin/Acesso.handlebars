@@ -1,0 +1,208 @@
+<style>
+   /* Define que todos os elementos usarão o modelo de box-sizing 'border-box', que inclui o padding e a borda dentro das dimensões do elemento */
+   * {
+       box-sizing: border-box;
+   }
+
+   /* Estilo para o h1 com id 'h1', alterando a cor do texto para #f8f8f8 (branco) */
+   #h1 {
+       color: #f8f8f8;
+   }
+
+   /* Estilo para o contêiner principal com id 'forma' */
+   #forma {
+       display: grid; /* Utiliza um layout em grid */
+       justify-content: center !important; /* Centraliza horizontalmente o conteúdo */
+       align-items: center; /* Centraliza verticalmente o conteúdo */
+       height: 100vh; /* Define a altura como 100% da altura da tela */
+       width: 100%; /* Define a largura como 100% da largura da tela */
+       background: linear-gradient(151deg, rgba(6,187,255,1) 0%, rgba(107,183,255,1) 44%, rgba(21,113,255,1) 65%); /* Define um fundo com gradiente */
+       position: relative; /* Define a posição relativa do contêiner */
+       z-index: 2; /* Define a sobreposição do contêiner */
+       grid-template-columns: 1fr; /* Define que o grid terá uma única coluna que ocupa 1 fração do espaço disponível */
+       padding: 0 1rem; /* Adiciona um padding lateral de 1rem */
+   }
+
+   /* Estilo para o elemento com id 'nav', definindo um background color */
+   #nav {
+       background-color: #f8f8f8 !important;
+   }
+
+   /* Estilo para elementos de lista (li), definindo a cor do texto como azul */
+   li {
+       color: blue;
+   }
+
+   /* Oculta o elemento com id 'sair' */
+   #sair {
+       display: none;
+   }
+
+   /* Estilo para os elementos com ids 'sobre' e 'ini', definindo a cor do texto */
+   #sobre,
+   #ini {
+       color: #8c8cf1 !important;
+   }
+
+   /* Altera a cor dos elementos com id 'sobre' ao passar o mouse */
+   #sobre:hover {
+       color: black !important;
+       transition: 0.3s !important;
+   }
+
+   /* Altera a cor dos elementos com id 'ini' ao passar o mouse */
+   #ini:hover {
+       color: black !important;
+       transition: 0.3s !important;
+   }
+
+   /* Define estilos base para o body e html para evitar margens, padding e rolagem horizontal */
+   body, html {
+       margin: 0;
+       padding: 0;
+       height: 100%;
+       width: 100%;
+       overflow-x: hidden; /* Evita a rolagem horizontal desnecessária */
+   }
+
+   /* Define que o elemento com a classe 'card' terá uma largura máxima de 100% */
+   .card {
+       max-width: 100%;
+   }
+
+   /* Estilo para o contêiner com a classe 'card-body' */
+   .card-body {
+       margin: 0 auto; /* Centraliza horizontalmente */
+       display: flex; /* Define o layout flexível */
+       justify-content: center; /* Centraliza o conteúdo horizontalmente */
+       align-items: center; /* Centraliza o conteúdo verticalmente */
+       flex-direction: column; /* Alinha os itens em uma coluna */
+       border: 2px solid #fafafa; /* Define uma borda */
+       width: 18rem; /* Define uma largura fixa */
+       height: 23rem; /* Define uma altura fixa */
+       border-radius: 18px; /* Define cantos arredondados */
+       background-color: #faf5f523; /* Define uma cor de fundo com transparência */
+   }
+
+   /* Estilo para o elemento com id 'fotoLogin' */
+   #fotoLogin {
+       margin-top: -6rem; /* Define uma margem superior negativa */
+       margin-bottom: 5rem; /* Define uma margem inferior */
+       width: 100%; /* Define a largura como 100% */
+       height: 80px; /* Define a altura */
+       border: none; /* Remove a borda */
+       display: flex; /* Define o layout flexível */
+       justify-content: center; /* Centraliza o conteúdo horizontalmente */
+       align-items: center; /* Centraliza o conteúdo verticalmente */
+   }
+
+   /* Estilo para o formulário */
+   form {
+       display: flex; /* Define o layout flexível */
+       flex-direction: column; /* Alinha os itens em uma coluna */
+       height: 12rem; /* Define a altura do formulário */
+   }
+
+   /* Estilo para o rótulo de CPF */
+   #labelCpf {
+       color: #f7f6f8; /* Define a cor do texto */
+   }
+
+   /* Estilo para o campo de entrada do CPF */
+   #inputCpf {
+       color: #5858fd !important; /* Define a cor do texto */
+       border: 2px solid #f8f8f8; /* Define a borda */
+   }
+
+   /* Estilo para o link 'esqueci CPF' */
+   #linkEsqueci {
+       font-size: 12px; /* Define o tamanho da fonte */
+       margin-bottom: 3rem; /* Define a margem inferior */
+       margin-left: 2px; /* Define a margem esquerda */
+       color: #310dff; /* Define a cor do texto */
+   }
+
+   /* Estilo base do botão com a classe 'btn-pulsar' */
+   .btn-pulsar {
+       background-color: transparent; /* Define a cor de fundo transparente */
+       border: 2px solid #fbfbfc; /* Define uma borda */
+       color: #faf5f5; /* Define a cor do texto */
+       padding: 10px 20px; /* Define o padding interno */
+       font-size: 16px; /* Define o tamanho da fonte */
+       cursor: pointer; /* Altera o cursor para pointer ao passar o mouse */
+       outline: none; /* Remove a borda padrão ao focar */
+       transition: all 0.3s ease-in-out; /* Define uma transição suave */
+       animation: pulsar 1.5s infinite; /* Adiciona uma animação de pulsar infinita */
+       border-radius: 10px; /* Define cantos arredondados */
+   }
+
+   /* Animação de pulsar para o botão */
+   @keyframes pulsar {
+       0% {
+           box-shadow: 0 0 5px #9b9bf8, 0 0 10px #ddddfc, 0 0 15px #ffffff;
+       }
+       50% {
+           box-shadow: 0 0 20px #8c8cf1, 0 0 30px #ffffff, 0 0 40px #ffffff;
+       }
+       100% {
+           box-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff;
+       }
+   }
+
+   /* Estilos específicos para telas menores */
+   @media (max-width: 768px) {
+       /* Ajusta o contêiner principal em telas menores */
+       #forma {
+           width: 100%; /* Define a largura como 100% */
+           padding: 0 1rem; /* Mantém um padding para evitar o contato direto com a borda */
+           margin: 0; /* Remove qualquer margem desnecessária */
+       }
+
+       /* Ajusta o card-body em telas menores */
+       .card-body {
+           margin-top: 2rem; /* Reduz o espaçamento superior em telas menores */
+           width: 90%; /* Adapta a largura do card em telas menores */
+       }
+   }
+</style>
+
+
+<div class="card" id="forma">
+    <!-- Título principal da página de login -->
+    <h1 id="h1">LOGIN</h1>
+
+    <div class="card-body">
+        <!-- Ícone de pessoa, usado como avatar de login -->
+        <div id="fotoLogin">
+            <svg xmlns="http://www.w3.org/2000/svg" width="106" height="106" fill="#ffffff" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+            </svg>
+        </div>
+        
+        <!-- Formulário de login -->
+        <form action="/admin/logar" method="post"> 
+            <!-- Campo de rótulo e entrada de CPF -->
+            <label for="cpf" id="labelCpf">CPF:</label>
+            <input type="text" id="inputCpf" name="cpf" placeholder="Digite seu CPF" required class="form-control">
+            <!-- Link para recuperação de CPF -->
+            <a href="" id="linkEsqueci">esqueceu cpf ?</a>
+            <!-- Botão de submissão do formulário -->
+            <button type="submit" class="btn-pulsar">Entrar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Mensagens de erro, se houver -->
+{{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+{{/if}}
+{{#if error}}
+    <div class="alert alert-danger">{{error}}</div>
+{{/if}}
+
+<!-- Script para esconder dinamicamente o link de sair -->
+<script>
+    const sair = document.getElementById('sobre');
+    sair.style.display = 'none';
+</script>

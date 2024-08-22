@@ -1,0 +1,94 @@
+<!--Codigo para estilizar -->
+<style>
+    #p{
+        margin-top: 4rem !important;
+        display: flex;
+    }
+    .card{
+        margin-top: 2rem;
+    }
+</style>
+
+{{#each erros}}
+<!-- Se houver erros, percorre cada erro e exibe uma mensagem de alerta com o texto do erro. Caso contrário, não exibe nada. -->
+<div class="alert alert-danger">{{texto}}</div>
+
+{{else}}
+
+{{/each}}
+
+<!-- Título da seção de edição de dados -->
+<p id="p"><h3 >Editar Dados: </h3></p>
+
+<a href="javascript:history.back()" id="retornar"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="#bfbfff" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/>
+    <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/>
+  </svg>
+</a>
+
+
+<!-- Estrutura de um cartão (card) do Bootstrap para manter o formulário visualmente agrupado e estilizado -->
+<div class="card">
+    <div class="card-body">
+
+        <!-- Formulário para edição de dados, enviando uma requisição POST para /admin/dados/edit com suporte a arquivos -->
+        <form action="/admin/dados/edit" method="POST" enctype="multipart/form-data">
+
+            <!-- Campo oculto contendo o ID dos dados que estão sendo editados -->
+            <input type="hidden" name="id" value="{{dados._id}}">
+
+            <div class="form-group">
+                <label for="image"><strong>Imagem:</strong></label>
+                <!-- Campo de entrada para o upload de uma imagem -->
+                <input type="file" class="form-control-file" name="image">
+            </div>
+
+            <div class="form-group">
+                <label for="nome"><strong>Nome:</strong></label>
+                <!-- Campo de entrada para o nome, preenchido com o valor atual dos dados e obrigatório -->
+                <input type="text" class="form-control" name="nome" value="{{dados.nome}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cpf"><strong>CPF:</strong></label>
+                <!-- Campo de entrada para a cpf, preenchido com o valor atual dos dados e obrigatório -->
+                <input type="text" class="form-control" name="cpf" value="{{dados.cpf}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="idade"><strong>Idade:</strong></label>
+                <!-- Campo de entrada para a idade, preenchido com o valor atual dos dados e obrigatório -->
+                <input type="number" class="form-control" name="idade" value="{{dados.idade}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="rua"><strong>Rua:</strong></label>
+                <!-- Campo de entrada para a rua, preenchido com o valor atual dos dados e obrigatório -->
+                <input type="text" class="form-control" name="rua" value="{{dados.rua}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="bairro"><strong>Bairro:</strong></label>
+                <!-- Campo de entrada para o bairro, preenchido com o valor atual dos dados e obrigatório -->
+                <input type="text" class="form-control" name="bairro" value="{{dados.bairro}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="estado"><strong>Estado:</strong></label>
+                <!-- Campo de entrada para o estado, preenchido com o valor atual dos dados e obrigatório -->
+                <input type="text" class="form-control" name="estado" value="{{dados.estado}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="biografia"><strong>Biografia:</strong></label>
+                <!-- Campo de entrada para a biografia, preenchido com o valor atual dos dados e obrigatório -->
+                <textarea class="form-control" name="biografia" required>{{dados.biografia}}</textarea>
+            </div>
+
+            <!-- Botão para enviar o formulário -->
+            <button type="submit" class="btn btn-success mt-4">Salvar</button>
+
+        </form>
+
+    </div>
+</div>

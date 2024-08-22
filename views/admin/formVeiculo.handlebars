@@ -1,0 +1,73 @@
+<!-- Se houver erros, percorre cada erro e exibe uma mensagem de alerta com o texto do erro. Caso contrário, exibe uma mensagem de sucesso informando que nenhum erro foi encontrado. -->
+{{#each erros}}
+
+<div class="alert alert-danger">{{texto}}</div>
+{{else}}
+
+<div class="alert alert-sucess">Nenhum erro encontrado</div>
+{{/each}}
+
+<h3>Cadastrar Veículo</h3>
+
+<div class="card">
+    <div class="card-body">
+    
+        <!-- Formulário para cadastro de veículos -->
+        <form action="/admin/veiculos/nova" method="POST">
+            <!-- Campo para o modelo do veículo -->
+            <label for="modelo">Modelo:</label>
+            <input type="text" name="modelo" id="modelo" class="form-control" required>
+
+            <!-- Campo para a placa do veículo -->
+            <label for="placa">Placa:</label>
+            <input type="text" name="placa" id="placa" class="form-control" required>
+
+            <!-- Campo para a cor do veículo -->
+            <label for="cor">Cor:</label>
+            <input type="text" name="cor" id="cor" class="form-control" required>
+
+            <!-- Campo para selecionar um dado associado ao veículo -->
+            <label for="dado">Dado:</label>
+            <select name="dado" class="form-select mt-2">
+                {{#each dados}} <!-- Itera sobre a lista de dados disponíveis -->
+                    <option value="{{this._id}}">{{this.nome}}</option> <!-- Exibe o nome do dado como opção -->
+                {{else}}
+                    <option value="0">Nenhum Dado</option> <!-- Caso não haja dados, exibe esta opção -->
+                {{/each}}
+            </select>
+
+            <!-- Botão para enviar o formulário -->
+            <button type="submit" class="btn btn-primary mt-4" id="buttonForm2">Salvar</button>
+        </form>
+
+        <!-- Exibição de mensagens de erro, se houver -->
+        {{#if erros}}
+            <div class="alert alert-danger mt-4">
+                {{#each erros}}
+                    <p>{{this.texto}}</p> <!-- Exibe cada mensagem de erro -->
+                {{/each}}
+            </div>
+        {{/if}}
+
+    </div>
+</div>
+
+
+<!--Script para dinâmica de botão do formulário-->
+<script>
+// Certifique-se de que o botão tem o ID "buttonForm"
+let button = document.getElementById("buttonForm2");
+button.addEventListener("click", (event) => {
+    // Adicione aqui o que deve acontecer quando o botão for clicado
+    if (button) {
+        button.style.background = "green";
+        button.textContent = "Salvando...";
+    }
+
+    // Atraso de 2 segundos antes de enviar o formulário
+    setTimeout(() => {
+        form.submit();
+    }, 2000);
+    // Aqui você pode adicionar lógica para validação de formulário ou outras ações
+});
+</script>

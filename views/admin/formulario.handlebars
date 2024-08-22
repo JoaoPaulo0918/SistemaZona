@@ -1,0 +1,89 @@
+<style>
+    /* Oculta o elemento com id 'sair' */
+    #sair {
+        display: none;
+    }
+</style>
+
+<!-- Se houver erros, percorre cada erro e exibe uma mensagem de alerta com o texto do erro.
+     Caso contrário, exibe uma mensagem de sucesso informando que nenhum erro foi encontrado. -->
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+    <div class="alert alert-success">Nenhum erro encontrado</div>
+{{/each}}
+
+<!-- Título da seção de cadastro de novos dados -->
+<h3>Novo Cadastro: </h3>
+
+<!-- Estrutura de um cartão (card) do Bootstrap para manter o formulário visualmente agrupado e estilizado -->
+<div class="card">
+    <div class="card-body">
+        <!-- Formulário para adicionar novos dados, enviando uma requisição POST para /admin/dados/nova com suporte a arquivos -->
+        <form action="/admin/dados/nova" method="post" enctype="multipart/form-data">
+
+            <!-- Campo para upload de imagem -->
+            <input type="file" id="image" name="image" />
+            <br>
+
+            <!-- Campo de texto para inserir o nome -->
+            <label for="nome">NOME:</label>
+            <input class="form-control" type="text" name="nome" id="nome" placeholder="Seu nome">
+            <br>
+
+            <!-- Campo de número para inserir o CPF -->
+            <label for="cpf">CPF:</label>
+            <input class="form-control" type="number" name="cpf" id="cpf" placeholder="Seu cpf">
+            <br>
+
+            <!-- Campo de número para inserir a idade -->
+            <label for="idade">IDADE:</label>
+            <input class="form-control" type="number" name="idade" id="idade" placeholder="Sua idade">
+            <br>
+
+            <!-- Campo de texto para inserir a rua -->
+            <label for="rua">RUA:</label>
+            <input class="form-control" type="text" name="rua" id="rua" placeholder="Sua rua">
+            <br>
+
+            <!-- Campo de texto para inserir o bairro -->
+            <label for="bairro">BAIRRO:</label>
+            <input class="form-control" type="text" name="bairro" id="bairro" placeholder="Seu bairro">
+            <br>
+
+            <!-- Campo de texto para inserir o estado -->
+            <label for="estado">ESTADO:</label>
+            <input class="form-control" type="text" name="estado" id="estado" placeholder="Seu estado">
+            <br>
+
+            <!-- Campo de texto para inserir a biografia -->
+            <p>BIOGRAFIA:</p>
+            <textarea class="form-control" name="biografia" id="biografia" placeholder="Sua biografia"></textarea>
+            <br>
+
+            <!-- Botão para enviar o formulário de cadastro -->
+            <button type="submit" class="btn btn-primary" id="buttonForm">Cadastrar</button>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    // Obtém o elemento do botão com o ID "buttonForm"
+    let button = document.getElementById("buttonForm");
+
+    // Adiciona um evento de clique ao botão
+    button.addEventListener("click", (event) => {
+        // Verifica se o botão existe e aplica alterações de estilo e texto ao ser clicado
+        if (button) {
+            button.style.background = "green"; // Muda a cor do fundo do botão para verde
+            button.textContent = "Salvando..."; // Altera o texto do botão para "Salvando..."
+        }
+
+        // Adiciona um atraso de 2 segundos antes de enviar o formulário
+        setTimeout(() => {
+            form.submit(); // Submete o formulário após o atraso
+        }, 2000);
+        // Aqui você pode adicionar lógica para validação de formulário ou outras ações
+    });
+</script>

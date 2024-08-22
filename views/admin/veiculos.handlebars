@@ -1,0 +1,130 @@
+<style>
+  /* Estilo para o cartão que contém o cabeçalho e a barra de pesquisa */
+  .card {
+    display: flex !important; /* Define o cartão como um contêiner flexível */
+    flex-direction: row; /* Alinha os itens na horizontal */
+    margin-top: 5rem; /* Adiciona uma margem superior */
+    margin-bottom: -3px; /* Adiciona uma margem inferior negativa */
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /* Define a família de fontes */
+    border-bottom: none !important; /* Remove a borda inferior */
+  }
+
+  /* Estilo para o corpo do cartão */
+  .card-body {
+    display: flex; /* Define o corpo como um contêiner flexível */
+    justify-content: space-between; /* Espaça os itens igualmente ao longo do eixo horizontal */
+  }
+
+  /* Estilo para o título dentro do cartão */
+  h2 {
+    margin-right: 2rem; /* Adiciona uma margem à direita do título */
+  }
+
+  /* Estilo para o contêiner da barra de pesquisa */
+  #divPesquisa {
+    display: flexbox; /* Corrige para 'display: flex' */
+    justify-content: space-between; /* Espaça os itens igualmente ao longo do eixo horizontal */
+  }
+
+  /* Estilo para o ícone de pesquisa dentro da barra de pesquisa */
+  #basic-addon1 {
+    background-color: rgba(3, 34, 34, 0); /* Define a cor de fundo como transparente */
+    border-right: none; /* Remove a borda direita */
+  }
+
+  /* Estilo para o campo de entrada de pesquisa */
+  #inputP {
+    border-left: none; /* Remove a borda esquerda */
+  }
+
+  /* Estilo para a tabela */
+  .table {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /* Define a família de fontes */
+  }
+</style>
+
+<div class="card">
+  <div class="card-body">
+    <div class="input-group" id="divPesquisa">
+      <!-- Título da seção -->
+      <h2>TABELA DE VEÍCULOS:</h2>
+      <!-- Grupo de entrada para a pesquisa -->
+      <span class="input-group-text" id="basic-addon1">
+        <!-- Ícone de pesquisa -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#032222b0" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+        </svg>
+      </span>
+      <!-- Campo de entrada para pesquisa -->
+      <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="basic-addon1" id="inputP">
+    </div>
+  </div>
+</div>
+
+<!-- Tabela de veículos -->
+<table class="table">
+  <thead>
+    <tr>
+      <!-- Cabeçalhos das colunas da tabela -->
+      <th class="table-info">#ID</th>
+      <th class="table-info">Proprietário</th>
+      <th class="table-info">Placa</th>
+      <th class="table-info">Modelo</th>
+      <th class="table-info">Cor</th>
+      <th class="table-info">Ações</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody">
+    <!-- Loop para iterar sobre cada veículo no array 'veiculos' -->
+    {{#each veiculos}}
+    <tr>
+      <!-- Dados de cada veículo -->
+      <th scope="row">{{this._id}}</th>
+      <td>{{this.usuario.nome}}</td>
+      <td>{{this.placa}}</td>
+      <td>{{this.modelo}}</td>
+      <td>{{this.cor}}</td>
+      <td>
+        <!-- Contêiner para os botões de ação -->
+        <div class="d-flex">
+          <!-- Formulário para deletar o veículo -->
+          <form action="/admin/veiculos/deletar" method="post">
+            <input type="hidden" name="id" value="{{this._id}}" />
+            <button type="submit" class="btn btn-danger">
+              <!-- Ícone de lixeira para o botão de deletar -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<!-- Mensagem exibida se não houver veículos -->
+{{#unless veiculos.length}}
+  <h4 class="mt-3">
+    Nenhum veículo registrado!
+  </h4>
+{{/unless}}
+
+<script>
+  // Função para filtrar a tabela enquanto o usuário digita
+  document.getElementById('inputP').addEventListener('keyup', function() {
+    const filter = this.value.toLowerCase(); // Obtém o valor da entrada em minúsculas
+    const rows = document.querySelectorAll('#tableBody tr'); // Seleciona todas as linhas da tabela
+    
+    rows.forEach(row => {
+      const placa = row.querySelector('td:nth-child(3)').textContent.toLowerCase(); // Obtém o texto da coluna de placa
+      if (placa.includes(filter)) {
+        row.style.display = ''; // Exibe a linha se a placa incluir o filtro
+      } else {
+        row.style.display = 'none'; // Oculta a linha se a placa não incluir o filtro
+      }
+    });
+  });
+</script>

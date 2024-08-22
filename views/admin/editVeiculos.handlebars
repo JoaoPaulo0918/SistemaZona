@@ -1,0 +1,51 @@
+{{!-- Exibição de erros --}}
+{{#each erros}}
+  <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+  <div class="alert alert-success">Nenhum erro encontrado</div>
+{{/each}}
+
+<h3>Editar Veículo</h3>
+<div class="card">
+  <div class="card-body">
+    <!-- Formulário de edição do veículo -->
+    <form action="/admin/veiculos/edit" method="POST">
+      <!-- Campo oculto para armazenar o ID do veículo -->
+      <input type="hidden" name="id" value="{{veiculo._id}}">
+
+      <!-- Campo para o modelo -->
+      <label for="modelo">Modelo:</label>
+      <input type="text" name="modelo" id="modelo" class="form-control" value="{{veiculo.modelo}}" required>
+
+      <!-- Campo para a placa -->
+      <label for="placa">Placa:</label>
+      <input type="text" name="placa" id="placa" class="form-control" value="{{veiculo.placa}}" required>
+
+      <!-- Campo para a cor -->
+      <label for="cor">Cor:</label>
+      <input type="text" name="cor" id="cor" class="form-control" value="{{veiculo.cor}}" required>
+
+      <!-- Seleção de dado -->
+      <label for="dado">Dado:</label>
+      <select name="dado" class="form-select mt-2">
+        {{#each dados}}
+          <option value="{{this._id}}" {{#eq this._id ../veiculo.dado}}selected{{/eq}}>{{this.nome}}</option>
+        {{else}}
+          <option value="0">Nenhum Dado</option>
+        {{/each}}
+      </select>
+
+      <!-- Botão de submissão -->
+      <button type="submit" class="btn btn-success mt-4">Salvar</button>
+    </form>
+
+    <!-- Exibição de erros adicionais -->
+    {{#if erros}}
+      <div class="alert alert-danger mt-4">
+        {{#each erros}}
+          <p>{{this.texto}}</p>
+        {{/each}}
+      </div>
+    {{/if}}
+  </div>
+</div>

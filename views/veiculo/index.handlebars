@@ -1,0 +1,73 @@
+<!-- Estilo para ajustar o posicionamento do botão 'Novo veículo' -->
+<style>
+  /* Ajusta a margem esquerda do botão 'Novo veículo' */
+  #butInfo {
+    margin-left: -10px; /* Move o botão 10 pixels para a esquerda */
+  }
+</style>
+
+<!-- Contêiner principal com layout flexível e margem inferior -->
+<div class="container d-flex mb-4">
+  <!-- Verifica se há veículos para exibir -->
+  {{#if veiculos.length}}
+    <!-- Link para adicionar um novo veículo -->
+    <a href="/admin/veiculos/add" id="butInfo">
+      <!-- Botão para criar um novo veículo -->
+      <button id="butonNovo" class="btn btn-info">
+        Novo veículo
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
+        </svg>
+      </button>
+    </a>
+  {{else}}
+    <!-- Mensagem exibida se não houver veículos -->
+    <p>Nenhum veículo encontrado para este usuário.</p>
+  {{/if}}
+</div>
+
+<!-- Botão para voltar à página anterior -->
+<a href="javascript:history.back()" id="retornar">
+  <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="#bfbfff" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/>
+    <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/>
+  </svg>
+</a>
+
+<!-- Exibe uma lista de veículos -->
+{{#each veiculos}}
+  <div class="card mt-5">
+    <div class="card-body">
+      <!-- Detalhes do veículo -->
+      <p><strong>Modelo:</strong> {{this.modelo}}</p>
+      <p><strong>Placa:</strong> {{this.placa}}</p>
+      <p><strong>Cor:</strong> {{this.cor}}</p>
+      <p><strong>Usuario:</strong> {{this.usuario.nome}}</p>
+
+      <!-- Botões de ação para editar e deletar o veículo -->
+      <div class="butoes">
+        <!-- Botão para editar o veículo -->
+        <a href="/admin/veiculos/edit/{{this._id}}">
+          <button class="btn btn-primary" id="editar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+              <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"></path>
+            </svg>
+          </button>
+        </a>
+
+        <!-- Botão para deletar o veículo -->
+        <a href="/admin/veiculos/deletar/{{this._id}}">
+          <button type="submit" class="btn btn-danger">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"></path>
+              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"></path>
+            </svg>
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+{{else}}
+  <!-- Mensagem exibida se não houver veículos -->
+  <p>Nenhum veículo encontrado para este usuário.</p>
+{{/each}}

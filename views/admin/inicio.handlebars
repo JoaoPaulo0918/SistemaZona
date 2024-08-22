@@ -1,0 +1,88 @@
+<style>
+  /* Estilo para o contêiner principal */
+  #divInicio2 {
+    position: relative;
+    margin-top: 20vh; /* Adiciona uma margem superior para centralizar o contêiner na tela */
+    overflow: hidden; /* Garante que o fundo não saia dos limites da div */
+  }
+
+  /* Estilo para o botão com ID "sair" */
+  #sair {
+    display: none; /* O botão está oculto por padrão */
+  }
+
+  /* Estilo para a imagem de fundo da div */
+  #divInicio2::before {
+    content: ""; /* Cria um pseudo-elemento vazio */
+    position: absolute; /* Posiciona o pseudo-elemento absolutamente dentro do contêiner pai */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(../img/logoza20080.webp); /* Define a imagem de fundo */
+    background-size: cover; /* Faz com que a imagem cubra completamente a div */
+    opacity: 0.5; /* Define a opacidade da imagem de fundo */
+    z-index: 1; /* Garante que o fundo fique atrás dos elementos */
+    border-bottom-right-radius: 140px; /* Adiciona um raio de borda no canto inferior direito */
+  }
+
+  /* Estilo para os elementos dentro da div com ID "divH1" e para o botão com ID "btnAdmin" */
+  #divH1,
+  #btnAdmin {
+    position: relative;
+    z-index: 2; /* Coloca os elementos na frente do fundo */
+  }
+
+  /* Estilo para centralizar o conteúdo dentro da div com ID "divH1" */
+  #divH1 {
+    display: flex;
+    justify-content: center; /* Alinha o conteúdo horizontalmente ao centro */
+    align-items: center; /* Alinha o conteúdo verticalmente ao centro */
+    flex-direction: column; /* Organiza os itens em uma coluna */
+  }
+
+  /* Estilo para o título dentro da div com ID "divH1" */
+  #hh1 {
+    color: rgb(60, 60, 88); /* Define a cor do texto */
+    text-shadow: 1px 1px 4px rgba(248, 247, 247, 0.685); /* Adiciona uma sombra ao texto */
+  }
+
+  /* Estilo adicional para o botão com ID "btnAdmin" */
+  #btnAdmin {
+    margin-left: 12px; /* Adiciona uma margem à esquerda do botão */
+  }
+</style>
+
+<!-- Contêiner principal -->
+<div class="p-5 mb-4 rounded-3" id="divInicio2">
+  <div class="container-fluid" id="divH1">
+    <!-- Título da página -->
+    <h1 class="display-4" id="hh1">
+      Sistema Zona Azul
+    </h1>
+  
+    <br>
+    
+    <!-- Descrição -->
+    <p class="lead mt-4"><strong>Acesse sua conta abaixo:</strong></p>
+    
+    <!-- Botões de navegação -->
+    <p class="lead mt-4">
+      <!-- Botão para usuário -->
+      <a href="/admin/logar" class="btn btn-primary btn-lg" role="button">
+        Usuário
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+        </svg>
+      </a>
+
+      <!-- Botão para administrador -->
+      <a href="/usuarios/login" class="btn btn-success btn-lg" role="button" id="btnAdmin">
+        Admin
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+        </svg>
+      </a>
+    </p>
+  </div>
+</div>

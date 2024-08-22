@@ -1,0 +1,83 @@
+<!-- Estilo CSS -->
+<style>
+  /* Estilo para o contêiner principal */
+  #divInicio {
+    position: relative; /* Permite a sobreposição de elementos posicionados */
+    margin-top: 20vh; /* Margem superior de 20% da altura da visualização */
+    overflow: hidden; /* Garante que o fundo não saia dos limites da div */
+    padding: 20px 95px !important; /* Adiciona padding com prioridade */
+  }
+
+  /* Estilo para o fundo da div com imagem */
+  #divInicio::before {
+    content: ""; /* Necessário para criar o pseudo-elemento */
+    position: absolute; /* Posiciona o fundo em relação ao contêiner principal */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(../img/logoza20080.webp); /* Imagem de fundo */
+    background-size: cover; /* Cobre completamente o contêiner */
+    opacity: 0.5; /* Define a opacidade da imagem de fundo */
+    z-index: 1; /* Coloca o fundo atrás dos outros elementos */
+    border-bottom-right-radius: 140px; /* Arredonda o canto inferior direito */
+  }
+
+  /* Estilo para o botão de sair (não exibido) */
+  #sair {
+    display: none; /* Oculta o botão */
+  }
+
+  /* Estilo para os elementos dentro do contêiner principal */
+  #divH1,
+  #btnCriar {
+    position: relative; /* Permite que esses elementos fiquem à frente do fundo */
+    z-index: 2; /* Coloca os elementos à frente do fundo */
+    margin: 5px; /* Margem para os elementos */
+  }
+
+  /* Estilo para o título h1 */
+  #hh1 {
+    margin-left: 2px; /* Margem esquerda do título */
+    position: relative; /* Permite que o título fique à frente do fundo */
+    z-index: 2; /* Coloca o título à frente do fundo */
+  }
+
+  /* Estilo para os parágrafos p1 e p2 */
+  #p2,
+  #p1 {
+    z-index: 2; /* Coloca os parágrafos à frente do fundo */
+    margin-left: 5px; /* Margem esquerda dos parágrafos */
+  }
+</style>
+
+<!-- Contêiner principal -->
+<div class="p-5 mb-4 rounded-3" id="divInicio">
+  <!-- Título principal -->
+  <h1 class="display-4" id="hh1">
+    Bem vindo, ao Sistema Zona Azul
+  </h1>
+  <!-- Descrição do sistema -->
+  <p class="lead" id="p1">
+    Um sistema simples usado para cadastro de pessoa física, para que possa estacionar em local determinado.
+  </p>
+  <br class="my-4" />
+  <!-- Texto adicional -->
+  <p id="p2">
+    Check out the examples below for how you can remix and restyle it to your liking.
+  </p>
+  <p class="lead mt-4">
+    <!-- Botão para acessar a página inicial do admin -->
+    <a href="/admin/inicio" class="btn btn-secondary btn-lg" role="button" id="btnCriar">
+      Acessar 
+    </a>
+
+    <!-- Botão para criar uma conta -->
+    <a href="admin/dados/add" class="btn btn-primary btn-lg" role="button" id="btnCriar">
+      Crie uma conta  
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
+      </svg>
+    </a>
+  </p>
+</div>
