@@ -22,6 +22,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/pagina', {
   console.log("Erro ao se conectar ao MongoDB: " + err);
 });
 
+
 // Configuração do Body-Parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
