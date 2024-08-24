@@ -8,12 +8,26 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const Handlebars = require('handlebars');
 const passport = require('passport');
+require('dotenv').config();
 require('./config/alth')(passport)
 
 const app = express();
 
 // Conecta ao MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/pagina', {
+
+const connectDB = async () => {
+  console.log("Connecting to MongoDB...");
+  await mongoose.connect(process.env.MONGODB_CONNECT_URI).then(() => {
+    console.log("Connected to MongoDB successfully");
+  }).catch((error) => {
+    console.log("Connection failed: " + error);
+  });
+}
+connectDB();
+
+console.log("MongoDB URI:", process.env.MONGODB_CONNECT_URI);
+
+/*mongoose.connect('mongodb://168.232.64.188/32/pagina', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
@@ -21,6 +35,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/pagina', {
 }).catch((err) => {
   console.log("Erro ao se conectar ao MongoDB: " + err);
 });
+*/
 
 // Configuração do Body-Parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -98,4 +113,5 @@ app.use('/usuarios', usuarios);
 const PORT = process.env.PORT || 8081
 app.listen(PORT, () => {
   console.log("Servidor rodando na porta " + PORT);
+  
 });
