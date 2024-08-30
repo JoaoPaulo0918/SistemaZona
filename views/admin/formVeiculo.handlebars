@@ -1,3 +1,7 @@
+<style>
+   
+</style>
+
 <!-- Se houver erros, percorre cada erro e exibe uma mensagem de alerta com o texto do erro. Caso contrário, exibe uma mensagem de sucesso informando que nenhum erro foi encontrado. -->
 {{#each erros}}
 
@@ -7,38 +11,49 @@
 <div class="alert alert-sucess">Nenhum erro encontrado</div>
 {{/each}}
 
+
 <h3>Cadastrar Veículo</h3>
 
 <div class="card">
     <div class="card-body">
     
         <!-- Formulário para cadastro de veículos -->
-        <form action="/admin/veiculos/nova" method="POST">
-            <!-- Campo para o modelo do veículo -->
-            <label for="modelo">Modelo:</label>
-            <input type="text" name="modelo" id="modelo" class="form-control" required>
+<form action="/admin/veiculos/nova" method="POST" id="form">
 
-            <!-- Campo para a placa do veículo -->
-            <label for="placa">Placa:</label>
-            <input type="text" name="placa" id="placa" class="form-control" required>
+<p id="Pbuton">
+        Clique aqui para começar 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+        </svg> 
+        <button type="submit" class="btn btn-primary " id="buttonForm2">Click</button>
+    </p>
+    
+    <br>
 
-            <!-- Campo para a cor do veículo -->
-            <label for="cor">Cor:</label>
-            <input type="text" name="cor" id="cor" class="form-control" required>
+    <label for="modelo" id="labelModelo">Modelo:</label>
+    <input type="text" name="modelo" id="modelo" class="form-control" >
 
-            <!-- Campo para selecionar um dado associado ao veículo -->
-            <label for="dado">Escolha seu nome:</label>
-            <select name="dado" class="form-select mt-2">
-                {{#each dados}} <!-- Itera sobre a lista de dados disponíveis -->
-                    <option value="{{this._id}}">{{this.nome}}</option> <!-- Exibe o nome do dado como opção -->
-                {{else}}
-                    <option value="0">Nenhum Dado</option> <!-- Caso não haja dados, exibe esta opção -->
-                {{/each}}
-            </select>
+    <label for="placa" id="labelPlaca">Placa:</label>
+    <input type="text" name="placa" id="placa" class="form-control" >
 
-            <!-- Botão para enviar o formulário -->
-            <button type="submit" class="btn btn-primary mt-4" id="buttonForm2">Salvar</button>
-        </form>
+    <label for="cor" id="labelCor">Cor:</label>
+    <input type="text" name="cor" id="cor" class="form-control" >
+
+    <label for="dado" id="labelDados">Escolha seu nome:</label>
+    <select name="dado" class="form-select mt-2" id="selec">
+    {{#each dados}}
+        <option value="{{this._id}}">{{this.nome}}</option>
+    {{else}}
+        <option value="0">Nenhum Dado</option>
+    {{/each}}
+</select>
+
+
+        <button type="submit" class="btn btn-primary mt-4" id="buttonForm">Salvar</button>
+
+
+
+</form>
 
         <!-- Exibição de mensagens de erro, se houver -->
         {{#if erros}}
@@ -52,22 +67,51 @@
     </div>
 </div>
 
+<!--Script para dinâmica do formulario-->
+<script>
+    const butonSubmit = document.getElementById('buttonForm2');
+    const select = document.getElementById('selec');
+    const pbuton = document.getElementById('Pbuton');
+    
+    butonSubmit.addEventListener("click", (event) => {
+        event.preventDefault(); // Evita o envio do formulário
+        
+        // Atualiza o texto do botão e o reposiciona
+       
+       
+       // select.insertAdjacentElement('afterend', butonSubmit);
+        butonSubmit.style.marginTop = '20px';
+    });
+
+    // Opcional: Verifica se o campo select está vazio ao clicar no botão submit
+    butonSubmit.addEventListener('click', () => {
+        if (select.value === "0") {
+            alert('Por favor, selecione um dado válido antes de enviar.');
+        } else {
+            document.querySelector('#form').submit();
+        }
+    });
+</script>
+
+
 
 <!--Script para dinâmica de botão do formulário-->
 <script>
-// Certifique-se de que o botão tem o ID "buttonForm"
-let button = document.getElementById("buttonForm2");
-button.addEventListener("click", (event) => {
-    // Adicione aqui o que deve acontecer quando o botão for clicado
-    if (button) {
-        button.style.background = "green";
-        button.textContent = "Salvando...";
-    }
+    
+    // Certifique-se de que o botão tem o ID "buttonForm"
+    let button = document.getElementById("buttonForm2");
+    button.addEventListener("click", (event) => {
+        // Adicione aqui o que deve acontecer quando o botão for clicado
+        if (button) {
+            button.style.background = "green";
+            button.textContent = "Atualizando...";
+            pbuton.style.display = 'none'
+        }
 
-    // Atraso de 2 segundos antes de enviar o formulário
-    setTimeout(() => {
-        form.submit();
-    }, 2000);
-    // Aqui você pode adicionar lógica para validação de formulário ou outras ações
-});
+        // Atraso de 2 segundos antes de enviar o formulário
+        setTimeout(() => {
+            form.submit();
+        }, 2000);
+        // Aqui você pode adicionar lógica para validação de formulário ou outras ações
+    });
 </script>

@@ -196,26 +196,40 @@ router.get('/veiculos/add', (req, res) => {
 });
 
 
-//Rotas para cadastrar veiculos
+// Rota GET para renderizar o formulário de novo veículo
 router.get('/veiculos/nova', (req, res) => {
-  req.flash('error_msg', 'Dado inválido, registre um usuário');
-  res.redirect('/admin');
+  Dados.find().lean().then((dados) => {
+    console.log(dados)
+    res.render('admin/formVeiculo', { dados: dados });
+  }).catch((error) => {
+    console.error('Erro ao carregar dados:', error);
+    req.flash('error_msg', 'Houve um erro ao carregar a página.');
+    res.redirect('/admin/veiculos');
+  });
 });
 
+// Rota POST para processar o formulário de novo veículo
 router.post('/veiculos/nova', (req, res) => {
   console.log('Dados do formulário:', req.body);
 
-  var erros = [];
+  let erros = [];
 
+  // Validação do campo "dado"
   if (req.body.dado == '0') {
-    erros.push({ texto: 'Dado inválido, registre um usuário' });
+    erros.push({ texto: 'Por favor, registre as informações do seu veículo!' });
   }
 
+  // Verifica se há erros
   if (erros.length > 0) {
+    // Recarrega os dados para o select e renderiza o formulário com os erros
     Dados.find().lean().then((dados) => {
       res.render('admin/formVeiculo', { erros: erros, dados: dados });
+    }).catch((error) => {
+      req.flash('error_msg', 'Houve um erro ao carregar os dados.');
+      res.redirect('/admin/veiculos');
     });
   } else {
+    // Criação do novo veículo
     const novoVeiculo = {
       modelo: req.body.modelo,
       placa: req.body.placa,
@@ -236,7 +250,6 @@ router.post('/veiculos/nova', (req, res) => {
       });
   }
 });
-
 
 //Rota get para deletar veiculo a partir do id
 router.get("/veiculos/edit/:id", (req, res) => {
@@ -275,8 +288,8 @@ router.post("/veiculos/edit", (req, res) => {
 });
 
 //Rota para deletar veiculos
-router.get("/veiculos/deletar/:id", (req, res) => {
-  Veiculo.deleteOne({ _id: req.params.id }).then(() => {
+router.post("/veiculos/deletar", eAdmin, (req, res) => {
+  Veiculo.deleteOne({ _id: req.body.id }).then(() => {
     res.redirect("/admin/listaVeiculo");
   }).catch((err) => {
     console.log(err);
@@ -284,6 +297,7 @@ router.get("/veiculos/deletar/:id", (req, res) => {
     res.redirect("/admin/listaVeiculo");
   });
 });
+
 
 // Rota para exibir os veículos expecificos do usuário
 router.get('/veiculos/:id', async (req, res) => {
