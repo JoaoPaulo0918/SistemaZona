@@ -35,6 +35,17 @@
             Veiculos
           </a>
         </li>
+        <li class="nav-item">
+
+          <a class="nav-link" href="/admin/tabelaVagas">
+            VagasGeral
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/mapa">
+            Mapa
+          </a>
+        </li>
         <!-- Menu suspenso para o cadastro -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,6 +75,17 @@
               Sobre
             </a>
           </li>
+          <!-- Menu suspenso para o Mapa -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="mapa" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Mapa
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/admin/tabelaVagas">Tabela de Vagas</a></li>
+            <li><a class="dropdown-item" href="/admin/mapa">Mapa</a></li>
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/admin/logar" id="sair">
               Sair
@@ -77,6 +99,7 @@
 
 <!-- Script para confirmar o logout -->
 <script>
+
   // Seleciona o link de sair usando o ID 'sair'
   const sair = document.getElementById('sair');
   

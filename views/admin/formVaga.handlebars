@@ -1,0 +1,125 @@
+<style>
+    body{
+        margin: 0;
+    }
+
+    .container-fluid{
+        display: flex;
+        justify-content: center;
+    }
+
+    h2{
+        margin-top: 3rem !important;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        color: rgb(146, 146, 255) !important;
+    }
+
+    .card{
+        margin-top: 3rem;
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+
+    input{
+        margin-bottom: 0.5rem !important;
+    }
+
+    select{
+        width: 11rem;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .btn-info{
+        color: white !important;
+        margin-top: 1rem;
+    }
+
+</style>
+
+<div class="container-fluid">
+    <h2>Cadastrar Vaga</h2>
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+<!--formulário de cadastro das vagas-->
+        <form id="vagaForm">
+            <label for="placa">Placa-Veiculo:</label>
+            <input type="text" class="form-control" id="placa" name="placa" required>
+
+            <label for="vaga">Vaga:</label>
+            <select name="vaga" id="vaga" required>
+                <option value="">Selecione uma vaga</option>
+                {{#each vagas}}
+                <option value="{{this.numero}}">{{this.numero}}</option>
+                {{/each}}
+            </select>
+
+            <label for="horas">Horas:</label>
+            <select name="horas" id="horas" required>
+                <option value="2">2 horas</option>
+                <option value="4">4 horas</option>
+            </select>
+
+            <button type="submit" class="btn btn-info">Enviar</button>
+        </form>
+
+    </div>
+</div>
+
+<!--Script para enviar os dados para o back-end-->
+<script>
+document.getElementById('vagaForm').addEventListener('submit', async function (event) {
+    event.preventDefault(); // Evita o recarregamento da página
+    console.log("Formulário enviado!"); // Verifica se o formulário foi enviado
+
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch('/admin/api/atualizar-vaga', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        if (result.success) {
+    alert('Vaga atualizada com sucesso!');
+    atualizarTabela(result.vagaAtualizada); // Atualiza a tabela e chama a função do cronômetro
+
+    // Redireciona para a página da tabela
+    window.location.href = '/admin/tabelaVagas'; // Substitua pelo caminho correto da sua página
+} else {
+    alert('Erro ao atualizar a vaga: ' + result.message);
+}
+
+    } catch (error) {
+        console.error('Erro na requisição:', error);
+        alert('Erro ao conectar com o servidor.');
+    }
+});
+
+function atualizarTabela(vaga) {
+    console.log("Atualizando a tabela para a vaga:", vaga.numero); // Verifica se a função é chamada
+    const row = document.querySelector(`#vaga-row-${vaga.numero}`);
+    if (row) {
+        row.querySelector('.vaga-placa').textContent = vaga.placa;
+        row.querySelector('.vaga-horas').textContent = vaga.horas;
+
+        // Inicia o cronômetro com base nas horas da vaga
+        console.log(`Iniciando cronômetro para a vaga ${vaga.numero}`);
+        startTimer(vaga.numero, vaga.horas); // Chama a função que inicia o cronômetro
+    }
+}
+
+
+
+
+</script>
+
+

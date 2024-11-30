@@ -1,0 +1,127 @@
+<style>
+ #map {
+    height: 500px;
+    width: 81vw;
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container-fluid{
+    display: flex;
+    justify-content: center;
+  }
+
+  h2{
+    margin-top: 2rem !important;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(146, 146, 255) !important;
+  }
+  
+  .card-bory{
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .btn-info{
+    margin-bottom: 7px;
+  }
+
+  #link1{
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.2rem;
+    color: white;
+  }
+</style>
+
+<div class="container-fluid">
+    <h2>Mapa de Vagas</h2>
+</div>
+<div class="card mt-5" style="margin-top: 2rem !important;">
+    <div class="card-bory">
+
+        <div id="map"></div>
+
+
+        <script>
+            let map;
+
+            // Função para inicializar o mapa
+            function initMap() {
+                const mapOptions = {
+                    center: { lat: -7.837595, lng: -35.759664 },
+                    zoom: 16,
+                    disableDefaultUI: true,
+                    zoomControl: true,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    streetViewControl: false,
+                    fullscreenControl: false
+                };
+
+                // Cria o mapa
+                map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+                // Faz a requisição para obter as vagas
+                fetch('/admin/vagas')  // Rota configurada no backend para obter as vagas
+
+                  .then(response => response.json())
+                  .then(vagas => {
+                    vagas.forEach(vaga => {
+                      // Define o status da vaga e o ícone correspondente
+                      const status = vaga.ocupada ? 'Ocupada' : 'Livre';
+                      const iconUrl = vaga.ocupada ? "../img/ocupada.png" : "../img/livre.png";
+
+                      // Cria o marcador no mapa
+                      const marker = new google.maps.Marker({
+                        position: { lat: vaga.localizacao.latitude, lng: vaga.localizacao.longitude },
+                        map: map,
+                        title: `Vaga ${vaga.numero} - ${status}`,
+                        icon: {
+                          url: iconUrl, // Caminho do ícone com base no status
+                          scaledSize: new google.maps.Size(32, 32), // Tamanho ajustado
+                        },
+                      });
+
+                      // Cria uma janela de informação para o marcador
+                      const infowindow = new google.maps.InfoWindow({
+                        content: `
+                          <h3>Vaga ${vaga.numero}</h3>
+                          <p>Status: ${status}</p>
+                        `,
+                      });
+
+                      // Adiciona um evento de clique no marcador
+                      marker.addListener("click", () => {
+                        infowindow.open(map, marker);
+                      });
+                    });
+                  })
+                  .catch(error => console.error("Erro ao carregar as vagas:", error));
+
+            }
+
+            // Carrega o script do Google Maps e chama a função initMap quando carregado
+            window.onload = function() {
+                const script = document.createElement('script');
+                script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCMORWUpHM7exYDGPq7gKLnZauQcYH6WRs&callback=initMap";
+                script.async = true;
+                script.defer = true;
+                document.body.appendChild(script);
+            };
+        </script>
+
+        <!--Botão para ir para a tabela das vagas-->
+
+        <button type="button" class="btn btn-info mt-5">
+            <a href="/admin/tabelaVagas" id="link1">tabela</a>
+        </button>
+
+    </div>
+</div>

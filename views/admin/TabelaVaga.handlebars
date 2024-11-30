@@ -1,0 +1,393 @@
+<style>
+  /* Estilo para o cartão que contém o cabeçalho e a barra de pesquisa */
+  .card {
+    display: flex !important; /* Define o cartão como um contêiner flexível */
+    flex-direction: row; /* Alinha os itens na horizontal */
+    margin-top: 5rem; /* Adiciona uma margem superior */
+    margin-bottom: -3px; /* Adiciona uma margem inferior negativa */
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /* Define a família de fontes */
+    border-bottom: none !important; /* Remove a borda inferior */
+  }
+
+  /* Estilo para o corpo do cartão */
+  .card-body {
+    display: flex; /* Define o corpo como um contêiner flexível */
+    justify-content: space-between; /* Espaça os itens igualmente ao longo do eixo horizontal */
+  }
+
+ .container-fluid{
+    display: flex;
+    justify-content: center;
+  }
+
+  h2{
+    margin-top: 2rem !important;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: rgb(146, 146, 255) !important;
+  }
+
+  #linkAtualizar{
+    display: flex;
+    align-items: center;
+  }
+
+  #reloadLink{
+    margin-left: 0.3rem;
+    
+    
+  }
+
+  /* Estilo para o contêiner da barra de pesquisa */
+  #divPesquisa {
+    display: flexbox; /* Corrige para 'display: flex' */
+    justify-content: space-between; /* Espaça os itens igualmente ao longo do eixo horizontal */
+  }
+
+  /* Estilo para o ícone de pesquisa dentro da barra de pesquisa */
+  #basic-addon1 {
+    background-color: rgba(3, 34, 34, 0); /* Define a cor de fundo como transparente */
+    border-right: none; /* Remove a borda direita */
+  }
+
+  /* Estilo para o campo de entrada de pesquisa */
+  #inputP {
+    border-left: none; /* Remove a borda esquerda */
+  }
+
+  /* Estilo para a tabela */
+  .table {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /* Define a família de fontes */
+  }
+
+  #linkButon{
+    text-decoration: none;
+    color: white;
+  }
+
+#divButon{
+  margin-left: 1rem;
+  margin-top: 0.2rem;
+}
+  .resetarVagasBtn{
+    width: 3vw;
+    height: 7vh;
+    margin-top: 1px;
+  }
+</style>
+
+<div class="container-fluid">
+  <!-- Título da seção -->
+  <h2>
+    Tabela de Vagas
+  </h2>
+</div>
+
+<div id="linkAtualizar">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="blue"
+    class="bi bi-exclamation-triangle"
+    viewBox="0 0 16 16"
+  >
+    <path
+      d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z"
+    ></path>
+    <path
+      d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"
+    ></path>
+  </svg>
+  <a href="#" id="reloadLink">
+    Clique para recarregar a página
+  </a>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="input-group" id="divPesquisa">
+      <!-- Grupo de entrada para a pesquisa -->
+      <span class="input-group-text" id="basic-addon1">
+        <!-- Ícone de pesquisa -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="#032222b0"
+          class="bi bi-search"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+          ></path>
+        </svg>
+      </span>
+      <!-- Campo de entrada para pesquisa -->
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Pesquisar"
+        aria-label="Pesquisar"
+        aria-describedby="basic-addon1"
+        id="inputP"
+      />
+    </div>
+
+    <div id="divButon">
+      <button id="resetarVagasBtn" class="btn btn-danger">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-bootstrap-reboot"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M1.161 8a6.84 6.84 0 1 0 6.842-6.84.58.58 0 1 1 0-1.16 8 8 0 1 1-6.556 3.412l-.663-.577a.58.58 0 0 1 .227-.997l2.52-.69a.58.58 0 0 1 .728.633l-.332 2.592a.58.58 0 0 1-.956.364l-.643-.56A6.8 6.8 0 0 0 1.16 8z"
+          ></path>
+          <path
+            d="M6.641 11.671V8.843h1.57l1.498 2.828h1.314L9.377 8.665c.897-.3 1.427-1.106 1.427-2.1 0-1.37-.943-2.246-2.456-2.246H5.5v7.352zm0-3.75V5.277h1.57c.881 0 1.416.499 1.416 1.32 0 .84-.504 1.324-1.386 1.324z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!--Função para criar tabela e receber os dados via json-->
+<script>
+  //função para converter as horas 
+  function converterHorasParaSegundos(horas) {
+  const [horasParte, minutosParte = 0] = horas.split(' ').map((h) => parseInt(h, 10));
+  return (horasParte || 0) * 3600 + (minutosParte || 0) * 60;
+}
+
+//função de formatar o tempo 
+function formatarTempo(segundos) {
+  const horas = Math.floor(segundos / 3600);
+  const minutos = Math.floor((segundos % 3600) / 60);
+  const segundosRestantes = segundos % 60;
+
+  // Adiciona zero à esquerda para horas, minutos e segundos
+  const horasFormatadas = horas.toString().padStart(2, '0');
+  const minutosFormatados = minutos.toString().padStart(2, '0');
+  const segundosFormatados = segundosRestantes.toString().padStart(2, '0');
+
+  return `${horasFormatadas}:${minutosFormatados}:${segundosFormatados}`;
+}
+
+
+//função para carregar as vagas
+async function carregarVagas() {
+  try {
+    const response = await fetch('/admin/api/vagas');
+    const vagas = await response.json();
+
+    const tableBody = document.getElementById('tableBody');
+    tableBody.innerHTML = ''; // Limpa a tabela antes de adicionar as vagas
+
+    vagas.forEach((vaga) => {
+      const row = document.createElement('tr');
+      row.id = `vaga-row-${vaga.numero}`;
+
+      const horas = vaga.horas || '0 horas'; // Pega o valor de horas ou '0 horas' se não disponível
+      const horasEmSegundos = converterHorasParaSegundos(horas);
+
+      row.innerHTML = `
+        <td class="vaga-placa">${vaga.placa || 'N/A'}</td>
+        <td>${vaga.numero}</td>
+        <td class="vaga-ocupacao">${vaga.ocupada ? 'Sim' : 'Não'}</td>
+        <td>${vaga.localizacao?.latitude || 'N/A'}, ${vaga.localizacao?.longitude || 'N/A'}</td>
+        <td>${vaga.horas || '0 horas'}</td>
+        <td id="vaga-${vaga.numero}-timer">00:00:00</td> 
+        <td>
+          <button class="btn btn-danger" onclick="resetTimer(${vaga.numero}, ${horasEmSegundos})">Resetar Cronômetro</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-info"><a href="/admin/formularioVaga" id="linkButon">Comprar Vaga</a></button>
+        </td>
+      `;
+      tableBody.appendChild(row);
+
+      // Só inicia o cronômetro se a vaga estiver ocupada
+      if (vaga.ocupada) {
+        iniciarCronometro(vaga.numero, horasEmSegundos);
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao carregar vagas:', error);
+    alert('Erro ao carregar as vagas.');
+  }
+}
+
+
+
+// Chama a função ao carregar a página
+document.addEventListener('DOMContentLoaded', carregarVagas);
+
+document.getElementById('reloadLink').addEventListener('click', function(event) {
+    event.preventDefault();  // Previne o comportamento padrão do link
+    location.reload();       // Recarrega a página
+
+});
+</script>
+
+<!--Tabela parte onde fica o thead-->
+<table class="table">
+  <thead>
+    <tr>
+      <th class="table-info">
+        Placa
+      </th>
+      <th class="table-info">
+        Número Vaga
+      </th>
+      <th class="table-info">
+        Ocupação
+      </th>
+      <th class="table-info">
+        Localização
+      </th>
+      <th class="table-info">
+        Horas
+      </th>
+      <th class="table-info">
+        Cronômetro
+      </th>
+      <th class="table-info">
+        Resetar Cronômetro
+      </th>
+      <th class="table-info">
+        Comprar Vaga
+      </th>
+    </tr>
+  </thead>
+  <tbody id="tableBody">
+    <!-- As linhas serão adicionadas dinamicamente aqui -->
+  </tbody>
+</table>
+
+<!--Script onde fica o restante das funcionalidades-->
+<script>
+  //função de resetar o tempo
+function resetTimer(numero, tempoTotalSegundos) {
+  localStorage.removeItem(`cronometro-${numero}`);
+  iniciarCronometro(numero, tempoTotalSegundos);
+}
+
+
+//Função para resetar a tabela de vagas
+  async function resetarVagas() {
+  try {
+    const response = await fetch('/admin/api/resetar-vagas', { method: 'POST' });
+    const result = await response.json();
+
+    if (result.success) {
+      alert(result.message);
+      carregarVagas(); // Corrigido para chamar carregarVagas() após o reset
+    } else {
+      alert('Erro: ' + result.message);
+    }
+  } catch (error) {
+    console.error('Erro ao resetar as vagas:', error);
+    alert('Erro ao conectar com o servidor.');
+  }
+}
+
+// Exemplo de linha que será resetada ao final do cronômetro
+function resetarLinhaEspecifica(numero) {
+  // Supondo que você tenha uma tabela com id 'tabela-vagas'
+  const linha = document.querySelector(`#linha-${numero}`);
+  if (linha) {
+    // Limpa ou redefine o conteúdo dessa linha
+    linha.querySelector('.vaga-status').innerText = "Vaga Resetada"; // Exemplo de reset específico
+  }
+}
+
+
+// Exemplo de botão para resetar
+//document.getElementById('resetarVagasBtn').addEventListener('click', resetarVagas);
+
+
+
+//Função para iniciar o cronômetro 
+function iniciarCronometro(numero, tempoTotalSegundos) {
+  const timerId = `vaga-${numero}-timer`;
+
+  // Verifica se já existe estado salvo no localStorage
+  const estadoSalvo = JSON.parse(localStorage.getItem(`cronometro-${numero}`));
+
+  let tempoRestante;
+
+  if (estadoSalvo) {
+    const agora = Date.now();
+    const tempoPassado = Math.floor((agora - estadoSalvo.inicio) / 1000);
+    tempoRestante = estadoSalvo.tempoRestante - tempoPassado;
+
+    // Verifica se o tempo acabou e reseta a linha específica
+if (tempoRestante <= 0) {
+  document.getElementById(timerId).innerText = "Tempo esgotado!";
+  localStorage.removeItem(`cronometro-${numero}`);
+
+  // Reseta a linha específica
+  resetarLinhaEspecifica(numero);
+
+  // Chama a função de resetar vagas no servidor
+  resetarVagas();
+  
+  return; // Sai da função, caso o tempo tenha acabado
+}
+  } else {
+    // Inicializa o cronômetro pela primeira vez
+    tempoRestante = tempoTotalSegundos;
+
+    // Salva o estado inicial no localStorage
+    localStorage.setItem(`cronometro-${numero}`, JSON.stringify({
+      inicio: Date.now(),
+      tempoRestante: tempoTotalSegundos,
+    }));
+  }
+
+  // Declara o intervalo antes de usá-lo
+  let intervalo;
+
+  // Atualiza o cronômetro visualmente
+  const atualizarCronometro = () => {
+    const horas = Math.floor(tempoRestante / 3600);
+    const minutos = Math.floor((tempoRestante % 3600) / 60);
+    const segundos = tempoRestante % 60;
+
+    document.getElementById(timerId).innerText =
+      `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+
+    tempoRestante--;
+
+    if (tempoRestante < 0) {
+      clearInterval(intervalo);
+      document.getElementById(timerId).innerText = "Tempo esgotado!";
+      localStorage.removeItem(`cronometro-${numero}`);
+    }
+  };
+
+  atualizarCronometro(); // Mostra o tempo inicial
+  intervalo = setInterval(atualizarCronometro, 1000); // Inicializa o intervalo
+}
+
+
+
+  // Função para filtrar a tabela 
+  document.getElementById('inputP').addEventListener('keyup', function() {
+    const filter = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#tableBody tr');
+    
+    rows.forEach(row => {
+      const numero = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+      if (numero.includes(filter)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    }); 
+  });
+</script>

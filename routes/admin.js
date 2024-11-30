@@ -6,10 +6,12 @@ const path = require('path');
 const passport = require('passport');
 require('../modules/Dado'); // Carrega o módulo Dado
 require('../modules/Veiculo'); // Carrega o módulo Veiculo
+require('../modules/Vaga'); // Carrega o módulo de Vaga
 const { eAdmin } = require('../helpers/eAdmin');
 
 const Dados = mongoose.model('dados');
 const Veiculo = mongoose.model('Veiculo');
+const Vaga = mongoose.model('Vaga');
 
 // Configuração do Multer para upload de arquivos
 const storage = multer.diskStorage({
@@ -24,7 +26,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }); // Cria uma instância do multer com a configuração de armazenamento
 
 
+
+// Rotas de comando do sistema, para acesso e buscas
+
 // Rotas de comando do siatema, para acesso e buscas
+
 
 // Rotas protegidas com eAdmin
 router.get('/', (req, res) => {
@@ -377,6 +383,105 @@ router.get('/usuario', async (req, res) => {
 //rota para sair da navegação usuario
 router.get('/sobre', (req, res) =>{
   res.render('admin/sobre')
+});
+
+//rota para mapa
+router.get('/mapa', (req, res) => {
+  res.render('admin/mapa')
 })
+
+//rota para vagas
+router.get('/tabelaVagas', (req, res) => {
+  res.render('admin/TabelaVaga')
+})
+
+
+// Rota para buscar todas as vagas para o mapa
+
+// Rota para buscar todas as vagas
+
+router.get('/vagas', async (req, res) => {
+  try {
+    const vagas = await Vaga.find({});
+    res.json(vagas); // Retorna as vagas em JSON
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao buscar vagas', error });
+  }
+});
+
+
+//Rota para buscar as vagas para a tabela
+router.get('/api/vagas', async (req, res) => {
+  try {
+    const vagas = await Vaga.find(); // Ajuste o filtro, se necessário
+    res.json(vagas);
+  } catch (error) {
+    console.error('Erro ao buscar vagas:', error);
+    res.status(500).json({ success: false, message: 'Erro ao buscar vagas.' });
+  }
+});
+
+
+//Rota para anviar os dados para selecionar no formulario
+router.get('/formularioVaga', async (req, res) => {
+  try {
+      const vagas = await Vaga.find({ ocupada: false }); // Somente vagas disponíveis
+      res.render('admin/formVaga', { vagas });
+      
+  } catch (error) {
+      console.error('Erro ao buscar vagas:', error);
+      res.status(500).send('Erro ao carregar o formulário');
+  }
+});
+
+
+//Rota para atualizar os dados
+router.post('/api/atualizar-vaga', async (req, res) => {
+  const { placa, vaga, horas } = req.body;
+
+  if (!placa || !vaga || !horas) {
+    return res.status(400).json({ success: false, message: 'Todos os campos são obrigatórios.' });
+  }
+
+  try {
+    // Atualiza os dados no banco de dados
+    const vagaAtualizada = await Vaga.findOneAndUpdate(
+      { numero: vaga },
+      { ocupada: true, placa: placa, horas: horas, ultimaAtualizacao: Date.now() }, // Inclui o campo 'horas' se ele existir no esquema
+      { new: true } // Retorna o documento atualizado
+    );
+
+    if (!vagaAtualizada) {
+      return res.status(404).json({ success: false, message: 'Vaga não encontrada.' });
+    }
+
+    res.json({ success: true, vagaAtualizada }); // Inclui todos os campos relevantes
+  } catch (error) {
+    console.error('Erro ao atualizar vaga:', error);
+    res.status(500).json({ success: false, message: 'Erro interno no servidor.' });
+  }
+});
+
+
+//Rota para resetar os dados 
+router.post('/api/resetar-vagas', async (req, res) => {
+  try {
+    // Atualiza todas as vagas para valores zerados
+    await Vaga.updateMany({}, { 
+      $set: { 
+        placa: null, 
+        ocupada: false, 
+        ultimaAtualizacao: null, 
+        horas: null // Adicione o campo de horas aqui
+      } 
+    });
+
+    res.json({ success: true, message: 'Vagas resetadas com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao resetar vagas:', error);
+    res.status(500).json({ success: false, message: 'Erro ao resetar as vagas.' });
+  }
+});
+
 
 module.exports = router;                                                                                               
