@@ -54,7 +54,6 @@ router.get('/inicio', (req, res) => {
   res.render('admin/inicio');
 });
 
-
 //Rota para exibir todos os usuarios
 router.get('/dados', (req, res) => {
   Dados.find().lean().sort({ date: 'desc' }).then((dados) => {
