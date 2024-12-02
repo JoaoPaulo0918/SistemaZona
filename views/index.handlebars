@@ -17,6 +17,7 @@ body {
   }
 
   #qrDiv{
+    position: relative;
     width: 28vw;
     height: 60vh;
     display: flex;
@@ -26,6 +27,47 @@ body {
     background-color: rgb(236, 252, 252);
   }
 
+  #divQR{
+    display: flex;
+    position: absolute;
+    width: 87px;
+    height: 90px;
+    margin-left: 5.7vw;
+    margin-top: -8.5vh;
+  }
+
+  .qr-container {
+    position: relative;
+    width: 87px;
+    height: 90px;
+    display: flex;
+  }
+
+  #qrcode {
+    width: 87px !important;
+    height: 90px !important;
+  }
+
+  .scanner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: rgba(0, 255, 0, 0.5); /* Linha verde translúcida */
+    animation: scan 2s infinite;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7); /* Brilho ao redor */
+  }
+
+  @keyframes scan {
+    0% {
+       top: 0;
+    }
+    100% {
+      top: 100%;
+    }
+  }
+
   #imgQR{
     display: flex;
     width: 19vw;
@@ -33,6 +75,11 @@ body {
     margin-top:  1.4vh;
   }
   
+  @media (max-width: 768px) { /* Ajuste o valor para o breakpoint desejado */
+    #qrDiv {
+      display: none; /* Esconde o container e todos os seus elementos */
+    }
+  }
   .cta button {
     margin: 10px;
     padding: 10px 20px;
@@ -89,7 +136,12 @@ body {
       <button onclick="scrollToSection('beneficios')">Saiba Mais</button>
     </div>
     <div id="qrDiv">
-      
+        <div id="divQR">
+          <div class="qr-container">
+            <canvas id="qrcode"></canvas>
+            <div class="scanner"></div>
+          </div>
+        </div>
         <img  id="imgQR" src="./img/Captura de tela 2024-12-01 223958.jpg" alt="">
      
     </div>
@@ -138,6 +190,36 @@ body {
     function scrollToSection(sectionId) {
         document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
     }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script>
+    // 2. Gerar o QR Code
+    const qrCodeData = "https://sistemazona.onrender.com/admin"; // Substitua pelo dado que deseja codificar
+    const qrCodeCanvas = document.getElementById('qrcode'); // Agora selecionamos um <canvas>
+
+    QRCode.toCanvas(qrCodeCanvas, qrCodeData, {
+      width: 200, // Largura do QR Code
+      margin: 1, // Margem ao redor
+    }, function (error) {
+      if (error) {
+        console.error("Erro ao gerar QR Code:", error);
+      } else {
+        console.log("QR Code gerado com sucesso!");
+      }
+    });
+
+    // 3. Interatividade (opcional)
+    const scanner = document.querySelector('.scanner');
+
+    qrCodeCanvas.addEventListener('mouseover', () => {
+      scanner.style.animationPlayState = 'paused';
+    });
+
+    qrCodeCanvas.addEventListener('mouseout', () => {
+      scanner.style.animationPlayState = 'running';
+    });
+
   </script>
 
 
