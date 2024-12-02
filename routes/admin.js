@@ -33,9 +33,20 @@ const upload = multer({ storage: storage }); // Cria uma instância do multer co
 
 
 // Rotas protegidas com eAdmin
-router.get('/', (req, res) => {
-  res.render('index');
-});
+
+//Rota começo do sistema
+router.get('/', (req, res) =>{
+  res.render('index')
+}) 
+
+router.get('/primeiro', (req, res) =>{
+  res.render('admin/comeco')
+})
+
+
+router.get('/Qrcode', (req, res) =>{
+  res.render('admin/QRcode')
+})
 
 
 // Rota de acesso ao usuario e administrador
@@ -482,6 +493,9 @@ router.post('/api/resetar-vagas', async (req, res) => {
     res.status(500).json({ success: false, message: 'Erro ao resetar as vagas.' });
   }
 });
+
+
+//Rota para pagina 
 
 
 module.exports = router;                                                                                               

@@ -1,88 +1,209 @@
-<!-- Estilo CSS -->
 <style>
-  /* Estilo para o contêiner principal */
-  #divInicio {
-    position: relative; /* Permite a sobreposição de elementos posicionados */
-    margin-top: 20vh; /* Margem superior de 20% da altura da visualização */
-    overflow: hidden; /* Garante que o fundo não saia dos limites da div */
-    padding: 20px 95px !important; /* Adiciona padding com prioridade */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  .hero {
+    margin-top: 9vh !important;
+    background: linear-gradient(to right, #007bff, #00d4ff);
+    color: #fff;
+    text-align: center;
+    padding: 50px 20px;
+    display: flex;
+    justify-content: space-between;
   }
 
-   /*deixando o link do mapa em display none*/
-   #mapa{
-    display: none ;    
+  #qrDiv{
+    width: 28vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    background-color: rgb(236, 252, 252);
   }
 
-  /* Estilo para o fundo da div com imagem */
-  #divInicio::before {
-    content: ""; /* Necessário para criar o pseudo-elemento */
-    position: absolute; /* Posiciona o fundo em relação ao contêiner principal */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url(../img/logoza20080.webp); /* Imagem de fundo */
-    background-size: cover; /* Cobre completamente o contêiner */
-    opacity: 0.5; /* Define a opacidade da imagem de fundo */
-    z-index: 1; /* Coloca o fundo atrás dos outros elementos */
-    border-bottom-right-radius: 140px; /* Arredonda o canto inferior direito */
+  #imgQR{
+    display: flex;
+    width: 19vw;
+    height: 19vw;
+    margin-top:  1.4vh;
+  }
+  
+  .cta button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5rem;
+  }
+  
+  .benefits {
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  .cards {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .card {
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 10px;
+  }
+  
+  .map {
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  #map {
+    height: 300px;
+    width: 100%;
+    background: lightgray;
+  }
+  
+  #sair{
+    display: none;
   }
 
-  /* Estilo para o botão de sair (não exibido) */
-  #sair {
-    display: none; /* Oculta o botão */
-  }
-
-  /* Estilo para os elementos dentro do contêiner principal */
-  #divH1,
-  #btnCriar {
-    position: relative; /* Permite que esses elementos fiquem à frente do fundo */
-    z-index: 2; /* Coloca os elementos à frente do fundo */
-    margin: 5px; /* Margem para os elementos */
-  }
-
-  /* Estilo para o título h1 */
-  #hh1 {
-    margin-left: 2px; /* Margem esquerda do título */
-    position: relative; /* Permite que o título fique à frente do fundo */
-    z-index: 2; /* Coloca o título à frente do fundo */
-  }
-
-  /* Estilo para os parágrafos p1 e p2 */
-  #p2,
-  #p1 {
-    z-index: 2; /* Coloca os parágrafos à frente do fundo */
-    margin-left: 5px; /* Margem esquerda dos parágrafos */
+  #mapa{
+    display: none;
   }
 </style>
 
-<!-- Contêiner principal -->
-<div class="p-5 mb-4 rounded-3" id="divInicio">
-  <!-- Título principal -->
-  <h1 class="display-4" id="hh1">
-    Bem vindo, ao Sistema Zona Azul
-  </h1>
-  <!-- Descrição do sistema -->
-  <p class="lead" id="p1">
-    Um sistema simples usado para cadastro de pessoa física, para que possa estacionar em local determinado.
-  </p>
-  <br class="my-4" />
-  <!-- Texto adicional -->
-  <p id="p2">
-    Check out the examples below for how you can remix and restyle it to your liking.
-  </p>
-  <p class="lead mt-4">
-    <!-- Botão para acessar a página inicial do admin -->
-    <a href="/admin/inicio" class="btn btn-secondary btn-lg" role="button" id="btnCriar">
-      Acessar 
-    </a>
+<header class="hero">
+   
+    <div class="cta">
+      <h1>Facilite sua Mobilidade com a Zona Azul</h1>
+      <p>Compre, gerencie e saiba tudo sobre suas vagas.</p>
+      
+      <button onclick="comprarCreditos()">Inicio</button>
+      <button onclick="scrollToSection('beneficios')">Saiba Mais</button>
+    </div>
+    <div id="qrDiv">
+      
+        <img  id="imgQR" src="./img/Captura de tela 2024-12-01 223958.jpg" alt="">
+     
+    </div>
+  </header>
 
-    <!-- Botão para criar uma conta -->
-    <a href="admin/dados/add" class="btn btn-primary btn-lg" role="button" id="btnCriar">
-      Crie uma conta  
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
-      </svg>
-    </a>
-  </p>
-</div>
+  <!-- Benefícios -->
+  <section id="beneficios" class="benefits">
+    <h2>Por que escolher a Zona Azul?</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Fácil de Usar</h3>
+        <p>Reserve sua vaga com poucos cliques.</p>
+      </div>
+      <div class="card">
+        <h3>Pagamento Rápido</h3>
+        <p>Use cartão ou Pix sem complicações.</p>
+      </div>
+      <div class="card">
+        <h3>Alertas Inteligentes</h3>
+        <p>Notificações para você não esquecer o horário.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mapa -->
+  <section id="mapa1" class="map">
+    <h2>Áreas Cobertas</h2>
+    <div id="map"></div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; 2024 Zona Azul. Todos os direitos reservados.</p>
+  </footer>
+
+<!--função para enviar usuario para pagina de inicio-->
+  <script >
+    function comprarCreditos() {
+        alert("Redirecionando para a página de acesso via qr-code...");
+        window.location.href = '/admin/primeiro';
+    }
+    
+    //função para enviar usuario para o meio desta pagina
+    function scrollToSection(sectionId) {
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+
+<!--Script do mapa de vgas-->
+  <script>
+            let map;
+
+            // Função para inicializar o mapa
+            function initMap() {
+                const mapOptions = {
+                    center: { lat: -7.837595, lng: -35.759664 },
+                    zoom: 16,
+                    disableDefaultUI: true,
+                    zoomControl: true,
+                    mapTypeControl: false,
+                    scaleControl: false,
+                    streetViewControl: false,
+                    fullscreenControl: false
+                };
+
+                // Cria o mapa
+                map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+                // Faz a requisição para obter as vagas
+                fetch('/admin/vagas')  // Rota configurada no backend para obter as vagas
+
+                  .then(response => response.json())
+                  .then(vagas => {
+                    vagas.forEach(vaga => {
+                      // Define o status da vaga e o ícone correspondente
+                      const status = vaga.ocupada ? 'Ocupada' : 'Livre';
+                      const iconUrl = vaga.ocupada ? "../img/ocupada.png" : "../img/livre.png";
+
+                      // Cria o marcador no mapa
+                      const marker = new google.maps.Marker({
+                        position: { lat: vaga.localizacao.latitude, lng: vaga.localizacao.longitude },
+                        map: map,
+                        title: `Vaga ${vaga.numero} - ${status}`,
+                        icon: {
+                          url: iconUrl, // Caminho do ícone com base no status
+                          scaledSize: new google.maps.Size(32, 32), // Tamanho ajustado
+                        },
+                      });
+
+                      // Cria uma janela de informação para o marcador
+                      const infowindow = new google.maps.InfoWindow({
+                        content: `
+                          <h3>Vaga ${vaga.numero}</h3>
+                          <p>Status: ${status}</p>
+                        `,
+                      });
+
+                      // Adiciona um evento de clique no marcador
+                      marker.addListener("click", () => {
+                        infowindow.open(map, marker);
+                      });
+                    });
+                  })
+                  .catch(error => console.error("Erro ao carregar as vagas:", error));
+
+            }
+
+            // Carrega o script do Google Maps e chama a função initMap quando carregado
+            window.onload = function() {
+                const script = document.createElement('script');
+                script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCMORWUpHM7exYDGPq7gKLnZauQcYH6WRs&callback=initMap";
+                script.async = true;
+                script.defer = true;
+                document.body.appendChild(script);
+            };
+        </script>
